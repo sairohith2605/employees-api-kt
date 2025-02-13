@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_COCKROACH_HOST}:${DB_COCKROACH_PORT}/${DATABASE}?sslmode=disable
+    username: ${COCKROACH_DB_USER}
+    password: ${COCKROACH_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      show_sql: ${SHOW_SQL:true}
+      format_sql: true
+  flyway:
+    enabled: ${FLYWAY_MIGRATIONS_ENABLED:true}
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+    validate-on-migrate: true
+
+server:
+  port: ${APPLICATION_PORT:8085}
+  servlet:
+    context-path: /api/v1
